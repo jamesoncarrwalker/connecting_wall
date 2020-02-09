@@ -116,7 +116,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {},
+  props: {},
+  methods: {},
+  computed: {}
+});
 
 /***/ }),
 
@@ -15869,10 +15874,12 @@ __webpack_require__.r(__webpack_exports__);
   mode: 'history',
   routes: [{
     path: '/',
-    component: _components_Wall__WEBPACK_IMPORTED_MODULE_0__["default"]
+    component: _components_Wall__WEBPACK_IMPORTED_MODULE_0__["default"],
+    name: 'wall'
   }, {
     path: '/connections',
-    component: _components_Connections__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: _components_Connections__WEBPACK_IMPORTED_MODULE_1__["default"],
+    name: 'connections'
   }]
 });
 

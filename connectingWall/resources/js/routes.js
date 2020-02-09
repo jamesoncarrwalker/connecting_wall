@@ -10,12 +10,14 @@ export default {
     routes: [
         {
             path:'/',
-            component: Wall
+            component: Wall,
+            name: 'wall'
 
         },
         {
             path:'/connections',
-            component: Connections
+            component: Connections,
+            name: 'connections'
         }
     ]
 };

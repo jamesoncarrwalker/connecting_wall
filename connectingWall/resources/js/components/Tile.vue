@@ -1,5 +1,5 @@
 <template>
-    <p>Wall</p>
+
 </template>
 
 <script>
@@ -21,6 +21,5 @@
         }
 
     };
-
 
 </script>
