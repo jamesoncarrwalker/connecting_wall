@@ -5,12 +5,11 @@
 
         <ul v-if="!isLoading" class="list-unstyled list-inline center-block "
         :class="getFullWidthClasses">
-            <tile  v-for="tile,index in getTiles"
+            <tile  v-for="tile, index in getTiles"
                    :title="tile.clue"
-                   :group="tile.group"
+                   :groupId="tile.groupId"
                    :id="tile.id"
                    :key="index"
-
             ></tile>
         </ul>
 
@@ -21,7 +20,6 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
     import Loading from './Loading.vue';
     import Tile from './Tile.vue';
 
@@ -34,8 +32,11 @@
 
         methods: {
             initWall() {
-                console.log('initing wall');
+                if(this.getTiles.length) {
+                    this.loading = false;
+                }
             },
+
             setLoading(status) {
                 this.loading = status;
             }
@@ -49,15 +50,37 @@
             getFullWidthClasses() {
                 return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
             },
+
             getTiles() {
-                return this.$store.state.clues;
+                return this.$store.getters.getSelectableTiles;
+            },
+            groupFound() {
+
+            },
+            checkSelectedItems() {
+                return this.$store.getters.selectedTilesCount === 4;
             },
 
+        },
+        data() {
+            return {
+                loading:true,
+            }
         },
 
         created() {
             this.initWall();
-            console.log('tiles: ',this.getTiles);
+
+        },
+        watch: {
+            // whenever question changes, this function will run
+            checkSelectedItems: function () {
+                if(this.checkSelectedItems && this.$store.getters.selectionsAreSingleGroup) {
+                    this.$store.dispatch('groupFound');
+                } else {
+                    this.$store.dispatch('clearSelectedTiles');
+                }
+            }
         }
 
     };

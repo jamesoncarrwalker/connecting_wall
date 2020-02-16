@@ -1,7 +1,8 @@
 <template>
     <li v-text="title"
-    :class="['text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile', {active:isActive}]"
-    @click="toggleActiveStatus"
+        v-show="showTilesForGroup"
+        :class="['text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile', {active:getActiveStatus}, 'group_' + groupId]"
+        @click="toggleActiveStatus"
     >
 
     </li>
@@ -11,10 +12,6 @@
 <script>
     export default {
 
-        components: {
-
-        },
-
         props: {
 
             title: {
@@ -22,37 +19,39 @@
                 required: true
             },
 
-            group: {
-                type: String,
+            groupId: {
+                type: Number,
                 required:true
             },
 
             id: {
                 type: Number,
                 required: true
-            }
-        },
-        data() {
-            return {
-                isActive: false
-            }
+            },
+
         },
 
         methods: {
             toggleActiveStatus() {
+                let payload = {tileId:this.id, groupId: this.groupId};
                 if(this.getActiveStatus) {
-                    console.log('active');
+                    this.$store.dispatch('deSelectTile',payload);
                 } else {
-                   console.log('deactive');
+                    this.$store.dispatch('selectTile',payload);
                 }
-
-                this.isActive = !this.isActive;
-            }
+            },
         },
 
         computed: {
             getActiveStatus() {
-                return this.isActive;
+                return this.$store.getters.isActiveTile(this.id);
+            },
+
+            getSelectedTiles() {
+                return this.$store.getters.selectedTiles;
+            },
+            showTilesForGroup() {
+                return this.$store.getters.showTilesForGroup(this.groupId);
             }
         }
 

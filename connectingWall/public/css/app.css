@@ -3,9 +3,9 @@
 }
 
 .router-view {
-  background: lightblue;
   height: auto;
   padding: 12px;
+  border-left: 1px solid lightblue;
 }
 
 .wallTile {
@@ -14,6 +14,27 @@
   background-color: grey;
   border-radius: 2.5px;
   width: 24%;
+}
+
+.wallTile.group_0 {
+  background-color: #D2B4DE;
+}
+
+.wallTile.group_1 {
+  background-color: #AED6F1;
+}
+
+.wallTile.group_2 {
+  background-color: #A9DFBF;
+}
+
+.wallTile.group_3 {
+  background-color: #EC7063;
+}
+
+.wallTile.active {
+  background-color: #45B39D;
+  color: white;
 }
 
 .router-view ul {

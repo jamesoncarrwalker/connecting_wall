@@ -4,4 +4,18 @@
   background-color: grey;
   border-radius: 2.5px;
   width: 24%;
+
+  &.group_0{
+    background-color: #D2B4DE;
+  }&.group_1{
+    background-color: #AED6F1;
+  }&.group_2{
+    background-color: #A9DFBF;
+  }&.group_3{
+    background-color: #EC7063;
+  }
+  &.active {
+    background-color: #45B39D;
+    color:white;
+  }
 }
