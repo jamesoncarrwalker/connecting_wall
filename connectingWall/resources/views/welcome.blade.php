@@ -26,14 +26,15 @@
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 card-body">
                     <ul class="list-unstyled">
 
-                        <li><router-link :to="{name: 'wall'}">Wall</router-link></li>
-                        <li><router-link :to="{name: 'connections'}">Connections</router-link></li>
+                        <li><router-link :to="{name: 'home'}"  exact>Home</router-link></li>
+                        <li><router-link :to="{name: 'wall'}"  exact>Wall</router-link></li>
+                        <li><router-link :to="{name: 'connections'}" >Connections</router-link></li>
                     </ul>
 
                 </div>
 
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <router-view></router-view>
+                    <router-view class="router-view"></router-view>
                 </div>
 
             </div>

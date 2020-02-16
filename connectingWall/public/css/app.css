@@ -1,0 +1,22 @@
+.strong {
+  font-weight: 800;
+}
+
+.router-view {
+  background: lightblue;
+  height: auto;
+  padding: 12px;
+}
+
+.wallTile {
+  height: 100px;
+  margin: 2px;
+  background-color: grey;
+  border-radius: 2.5px;
+  width: 24%;
+}
+
+.router-view ul {
+  padding: 0;
+}
+

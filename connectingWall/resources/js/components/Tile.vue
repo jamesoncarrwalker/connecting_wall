@@ -1,4 +1,10 @@
 <template>
+    <li v-text="title"
+    :class="['text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile', {active:isActive}]"
+    @click="toggleActiveStatus"
+    >
+
+    </li>
 
 </template>
 
@@ -16,12 +22,12 @@
                 required: true
             },
 
-            groupId: {
-                type: Number,
+            group: {
+                type: String,
                 required:true
             },
 
-            tileId: {
+            id: {
                 type: Number,
                 required: true
             }
@@ -35,9 +41,9 @@
         methods: {
             toggleActiveStatus() {
                 if(this.getActiveStatus) {
-                    // will add the id to the store
+                    console.log('active');
                 } else {
-                    //will remove id from the store
+                   console.log('deactive');
                 }
 
                 this.isActive = !this.isActive;
