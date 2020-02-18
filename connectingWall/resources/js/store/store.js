@@ -34,6 +34,8 @@ export const store = new Vuex.Store({
     },
 
     getters: {
+        getTiles: state => state.clues,
+        
         selectedTiles: state => state.selectedTiles,
 
         selectedTilesCount: state => state.selectedTiles.length,
@@ -42,15 +44,9 @@ export const store = new Vuex.Store({
 
         showModal: state => state.selectedTiles.length === 4,
 
-        getSelectableTiles: state => state.clues.filter((clue) => {
-            //TODO:: CHECK WHY THIS OCCASIONALLY REMOVES AN ENTIRE GROUP
-            return !state.groupsFoundIds[clue.groupId];
-        }),
-
         showTilesForGroup: state => groupId => state.groupsFoundIds.lastIndexOf(groupId) === -1,
 
         selectionsAreSingleGroup: state => {
-            console.log('checking 4');
             if(state.selectedTiles.length < 4) return false;
             const groupId = state.selectedTiles[0].groupId;
             const filteredSelection = state.selectedTiles.filter((tile) => {

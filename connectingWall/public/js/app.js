@@ -268,7 +268,7 @@ __webpack_require__.r(__webpack_exports__);
       return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
     },
     getTiles: function getTiles() {
-      return this.$store.getters.getSelectableTiles;
+      return this.$store.getters.getTiles;
     },
     groupFound: function groupFound() {},
     checkSelectedItems: function checkSelectedItems() {
@@ -17679,6 +17679,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     groupsFoundIds: []
   },
   getters: {
+    getTiles: function getTiles(state) {
+      return state.clues;
+    },
     selectedTiles: function selectedTiles(state) {
       return state.selectedTiles;
     },
@@ -17695,19 +17698,12 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     showModal: function showModal(state) {
       return state.selectedTiles.length === 4;
     },
-    getSelectableTiles: function getSelectableTiles(state) {
-      return state.clues.filter(function (clue) {
-        //TODO:: CHECK WHY THIS OCCASIONALLY REMOVES AN ENTIRE GROUP
-        return !state.groupsFoundIds[clue.groupId];
-      });
-    },
     showTilesForGroup: function showTilesForGroup(state) {
       return function (groupId) {
         return state.groupsFoundIds.lastIndexOf(groupId) === -1;
       };
     },
     selectionsAreSingleGroup: function selectionsAreSingleGroup(state) {
-      console.log('checking 4');
       if (state.selectedTiles.length < 4) return false;
       var groupId = state.selectedTiles[0].groupId;
       var filteredSelection = state.selectedTiles.filter(function (tile) {

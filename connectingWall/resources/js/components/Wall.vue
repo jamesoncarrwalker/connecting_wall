@@ -52,7 +52,7 @@
             },
 
             getTiles() {
-                return this.$store.getters.getSelectableTiles;
+                return this.$store.getters.getTiles;
             },
             groupFound() {
 
