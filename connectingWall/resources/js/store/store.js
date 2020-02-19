@@ -36,16 +36,10 @@ export const store = new Vuex.Store({
     getters: {
 
         getCluesForUnsolvedGroups: state => {
-            return state.clues.filter((clue) => {
-                return state.groupsFoundIds.lastIndexOf(clue.groupId) === -1
-            });
+            return  state.clues.filter(clue => state.groupsFoundIds.lastIndexOf(clue.groupId) === -1).sort(function(){return 0.5 - Math.random()});
         },
 
-        getCluesForSolvedGroups: state => {
-            return state.clues.filter((clue) => {
-                return state.groupsFoundIds.lastIndexOf(clue.groupId) > -1
-            });
-        },
+        getCluesForSolvedGroups: state => state.clues.filter(clue => state.groupsFoundIds.lastIndexOf(clue.groupId) > -1),
 
         activeTiles: state => state.activeTiles,
 
@@ -60,10 +54,9 @@ export const store = new Vuex.Store({
         selectionsAreSingleGroup: state => {
             if(state.activeTiles.length < 4) return false;
             const groupId = state.activeTiles[0].groupId;
-            const filteredSelection = state.activeTiles.filter((tile) => {
-                return tile.groupId === groupId;
-            });
-            return filteredSelection.length === 4;
+            //const filteredSelection = state.activeTiles.filter(tile => tile.groupId === groupId);
+
+            return state.activeTiles.filter(tile => tile.groupId === groupId).length === 4;
         },
 
         wallSolved: state => state.groupsFoundIds.length >= 3,
@@ -102,6 +95,9 @@ export const store = new Vuex.Store({
         },
         clearSelectedTiles({commit}) {
             commit('CLEAR_CURRENT_SELECTION');
+        },
+        completeWall({commit}){
+            commit('COMPLETE_WALL');
         }
     },
 
@@ -121,6 +117,12 @@ export const store = new Vuex.Store({
 
         CLEAR_CURRENT_SELECTION(state) {
             state.activeTiles = [];
+        },
+        COMPLETE_WALL(state) {
+            if(state.groupsFoundIds.length < 4) {
+                state.groupsFoundIds = state.groups.map(group => group.id);
+
+            }
         }
     }
 

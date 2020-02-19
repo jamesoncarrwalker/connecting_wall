@@ -1,10 +1,11 @@
 <template>
-    <li v-text="title"
-        :class="['text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile',
-        solved ? 'group_' + groupId : '', {active:getActiveStatus},
+    <li
+        :class="['align-middle','text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile',
+        solved ? 'group_' + groupId : '', {active:getActiveStatus}
          ]"
         @click="toggleActiveStatus"
     >
+        <div class="tileContent" v-text="title"></div>
 
     </li>
 

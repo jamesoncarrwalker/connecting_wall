@@ -75,6 +75,9 @@
             checkSelectedItems() {
                 return this.$store.getters.selectedTilesCount === 4;
             },
+            wallSolved() {
+                return this.$store.getters.wallSolved;
+            }
 
         },
         data() {
@@ -94,6 +97,12 @@
                     this.$store.dispatch('groupFound');
                 } else {
                     this.$store.dispatch('clearSelectedTiles');
+                }
+            },
+            wallSolved: function () {
+                if(this.wallSolved) {
+                    this.$store.dispatch('completeWall');
+                    this.$router.push({ name: 'connections' })
                 }
             }
         }

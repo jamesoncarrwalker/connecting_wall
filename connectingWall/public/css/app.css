@@ -9,12 +9,13 @@
 }
 
 .wallTile {
-  height: 100px;
+  min-height: 100px;
   margin: 2px;
   background-color: #5DADE2;
   color: white;
   border-radius: 2.5px;
   width: 24%;
+  vertical-align: middle;
 }
 
 .wallTile.group_0 {

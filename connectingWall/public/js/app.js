@@ -168,6 +168,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     title: {
@@ -298,6 +299,9 @@ __webpack_require__.r(__webpack_exports__);
     groupFound: function groupFound() {},
     checkSelectedItems: function checkSelectedItems() {
       return this.$store.getters.selectedTilesCount === 4;
+    },
+    wallSolved: function wallSolved() {
+      return this.$store.getters.wallSolved;
     }
   },
   data: function data() {
@@ -315,6 +319,14 @@ __webpack_require__.r(__webpack_exports__);
         this.$store.dispatch('groupFound');
       } else {
         this.$store.dispatch('clearSelectedTiles');
+      }
+    },
+    wallSolved: function wallSolved() {
+      if (this.wallSolved) {
+        this.$store.dispatch('completeWall');
+        this.$router.push({
+          name: 'connections'
+        });
       }
     }
   }
@@ -900,17 +912,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", {
-    class: [
-      "text-center",
-      "col-xs-4 col-sm-3 col-md-3 col-lg-3",
-      "wallTile",
-      _vm.solved ? "group_" + _vm.groupId : "",
-      { active: _vm.getActiveStatus }
-    ],
-    domProps: { textContent: _vm._s(_vm.title) },
-    on: { click: _vm.toggleActiveStatus }
-  })
+  return _c(
+    "li",
+    {
+      class: [
+        "align-middle",
+        "text-center",
+        "col-xs-4 col-sm-3 col-md-3 col-lg-3",
+        "wallTile",
+        _vm.solved ? "group_" + _vm.groupId : "",
+        { active: _vm.getActiveStatus }
+      ],
+      on: { click: _vm.toggleActiveStatus }
+    },
+    [
+      _c("div", {
+        staticClass: "tileContent",
+        domProps: { textContent: _vm._s(_vm.title) }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -17723,6 +17744,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     getCluesForUnsolvedGroups: function getCluesForUnsolvedGroups(state) {
       return state.clues.filter(function (clue) {
         return state.groupsFoundIds.lastIndexOf(clue.groupId) === -1;
+      }).sort(function () {
+        return 0.5 - Math.random();
       });
     },
     getCluesForSolvedGroups: function getCluesForSolvedGroups(state) {
@@ -17753,11 +17776,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     selectionsAreSingleGroup: function selectionsAreSingleGroup(state) {
       if (state.activeTiles.length < 4) return false;
-      var groupId = state.activeTiles[0].groupId;
-      var filteredSelection = state.activeTiles.filter(function (tile) {
+      var groupId = state.activeTiles[0].groupId; //const filteredSelection = state.activeTiles.filter(tile => tile.groupId === groupId);
+
+      return state.activeTiles.filter(function (tile) {
         return tile.groupId === groupId;
-      });
-      return filteredSelection.length === 4;
+      }).length === 4;
     },
     wallSolved: function wallSolved(state) {
       return state.groupsFoundIds.length >= 3;
@@ -17796,6 +17819,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     clearSelectedTiles: function clearSelectedTiles(_ref4) {
       var commit = _ref4.commit;
       commit('CLEAR_CURRENT_SELECTION');
+    },
+    completeWall: function completeWall(_ref5) {
+      var commit = _ref5.commit;
+      commit('COMPLETE_WALL');
     }
   },
   mutations: {
@@ -17810,6 +17837,13 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     CLEAR_CURRENT_SELECTION: function CLEAR_CURRENT_SELECTION(state) {
       state.activeTiles = [];
+    },
+    COMPLETE_WALL: function COMPLETE_WALL(state) {
+      if (state.groupsFoundIds.length < 4) {
+        state.groupsFoundIds = state.groups.map(function (group) {
+          return group.id;
+        });
+      }
     }
   }
 });

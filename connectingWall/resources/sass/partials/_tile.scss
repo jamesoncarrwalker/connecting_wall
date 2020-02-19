@@ -1,10 +1,17 @@
 .wallTile {
-  height: 100px;
+  min-height: 100px;
   margin: 2px;
   background-color: #5DADE2;
   color: white;
   border-radius: 2.5px;
   width: 24%;
+  vertical-align: middle;
+
+  //&.tileContent{
+  //  padding-top: 30%;
+  //  padding-bottom: 30%;
+  //  height: 40%;
+  //}
 
   &.group_0{
     background-color: #D2B4DE;
