@@ -47,8 +47,8 @@
                 return this.$store.getters.isActiveTile(this.id);
             },
 
-            getSelectedTiles() {
-                return this.$store.getters.selectedTiles;
+            getActiveTiles() {
+                return this.$store.getters.activeTiles;
             },
             showTilesForGroup() {
                 return this.$store.getters.showTilesForGroup(this.groupId);

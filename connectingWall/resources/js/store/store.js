@@ -29,27 +29,27 @@ export const store = new Vuex.Store({
             {id:15, groupId:3, clue:'early'},
             {id:16, groupId:3, clue:'leather'},
         ],
-        selectedTiles: [],
+        activeTiles: [],
         groupsFoundIds:[],
     },
 
     getters: {
         getTiles: state => state.clues,
-        
-        selectedTiles: state => state.selectedTiles,
 
-        selectedTilesCount: state => state.selectedTiles.length,
+        activeTiles: state => state.activeTiles,
 
-        isActiveTile: state => id => state.selectedTiles.findIndex(tile => tile.tileId === id) > -1,
+        selectedTilesCount: state => state.activeTiles.length,
 
-        showModal: state => state.selectedTiles.length === 4,
+        isActiveTile: state => id => state.activeTiles.findIndex(tile => tile.tileId === id) > -1,
+
+        showModal: state => state.activeTiles.length === 4,
 
         showTilesForGroup: state => groupId => state.groupsFoundIds.lastIndexOf(groupId) === -1,
 
         selectionsAreSingleGroup: state => {
-            if(state.selectedTiles.length < 4) return false;
-            const groupId = state.selectedTiles[0].groupId;
-            const filteredSelection = state.selectedTiles.filter((tile) => {
+            if(state.activeTiles.length < 4) return false;
+            const groupId = state.activeTiles[0].groupId;
+            const filteredSelection = state.activeTiles.filter((tile) => {
                 return tile.groupId === groupId;
             });
             return filteredSelection.length === 4;
@@ -64,7 +64,7 @@ export const store = new Vuex.Store({
     actions: {
         selectTile({commit,state}, payload) {
 
-            const existingEntry = state.selectedTiles.filter((tile) => {
+            const existingEntry = state.activeTiles.filter((tile) => {
                 return tile.tileId === payload.tileId;
             });
 
@@ -75,7 +75,7 @@ export const store = new Vuex.Store({
         },
 
         deSelectTile({state, commit}, payload) {
-            const indexToRemove = state.selectedTiles.findIndex(tile => tile.tileId === payload.tileId);
+            const indexToRemove = state.activeTiles.findIndex(tile => tile.tileId === payload.tileId);
 
             if(indexToRemove > -1) {
                 commit('REMOVE_SELECTED_TILE_ID',indexToRemove);
@@ -84,7 +84,7 @@ export const store = new Vuex.Store({
         },
 
         groupFound({state,commit}) {
-            const groupId = state.selectedTiles[0].groupId;
+            const groupId = state.activeTiles[0].groupId;
             commit('ADD_FOUND_GROUP',groupId);
 
             commit('CLEAR_CURRENT_SELECTION');
@@ -97,11 +97,11 @@ export const store = new Vuex.Store({
     mutations: {
 
         ADD_SELECTED_TILE_ID(state,payload){
-            state.selectedTiles.push(payload);
+            state.activeTiles.push(payload);
         },
 
         REMOVE_SELECTED_TILE_ID(state,payload){
-           state.selectedTiles.splice(payload,1);
+           state.activeTiles.splice(payload,1);
         },
 
         ADD_FOUND_GROUP(state,payload) {
@@ -109,7 +109,7 @@ export const store = new Vuex.Store({
         },
 
         CLEAR_CURRENT_SELECTION(state) {
-            state.selectedTiles = [];
+            state.activeTiles = [];
         }
     }
 

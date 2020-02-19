@@ -2,6 +2,16 @@
     <div :class="getFullWidthClasses">
         <loading v-if="isLoading"></loading>
 
+        <ul v-if="!isLoading" class="list-unstyled list-inline center-block">
+            <tile  v-for="tile, index in getTiles"
+                   :title="tile.clue"
+                   :groupId="tile.groupId"
+                   :id="tile.id"
+                   :key="index"
+            ></tile>
+
+        </ul>
+
 
         <ul v-if="!isLoading" class="list-unstyled list-inline center-block "
         :class="getFullWidthClasses">

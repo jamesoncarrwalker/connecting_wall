@@ -200,8 +200,8 @@ __webpack_require__.r(__webpack_exports__);
     getActiveStatus: function getActiveStatus() {
       return this.$store.getters.isActiveTile(this.id);
     },
-    getSelectedTiles: function getSelectedTiles() {
-      return this.$store.getters.selectedTiles;
+    getActiveTiles: function getActiveTiles() {
+      return this.$store.getters.activeTiles;
     },
     showTilesForGroup: function showTilesForGroup() {
       return this.$store.getters.showTilesForGroup(this.groupId);
@@ -222,6 +222,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Loading_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loading.vue */ "./resources/js/components/Loading.vue");
 /* harmony import */ var _Tile_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Tile.vue */ "./resources/js/components/Tile.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -922,6 +932,20 @@ var render = function() {
     { class: _vm.getFullWidthClasses },
     [
       _vm.isLoading ? _c("loading") : _vm._e(),
+      _vm._v(" "),
+      !_vm.isLoading
+        ? _c(
+            "ul",
+            { staticClass: "list-unstyled list-inline center-block" },
+            _vm._l(_vm.getTiles, function(tile, index) {
+              return _c("tile", {
+                key: index,
+                attrs: { title: tile.clue, groupId: tile.groupId, id: tile.id }
+              })
+            }),
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       !_vm.isLoading
         ? _c(
@@ -17675,28 +17699,28 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       groupId: 3,
       clue: 'leather'
     }],
-    selectedTiles: [],
+    activeTiles: [],
     groupsFoundIds: []
   },
   getters: {
     getTiles: function getTiles(state) {
       return state.clues;
     },
-    selectedTiles: function selectedTiles(state) {
-      return state.selectedTiles;
+    activeTiles: function activeTiles(state) {
+      return state.activeTiles;
     },
     selectedTilesCount: function selectedTilesCount(state) {
-      return state.selectedTiles.length;
+      return state.activeTiles.length;
     },
     isActiveTile: function isActiveTile(state) {
       return function (id) {
-        return state.selectedTiles.findIndex(function (tile) {
+        return state.activeTiles.findIndex(function (tile) {
           return tile.tileId === id;
         }) > -1;
       };
     },
     showModal: function showModal(state) {
-      return state.selectedTiles.length === 4;
+      return state.activeTiles.length === 4;
     },
     showTilesForGroup: function showTilesForGroup(state) {
       return function (groupId) {
@@ -17704,9 +17728,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       };
     },
     selectionsAreSingleGroup: function selectionsAreSingleGroup(state) {
-      if (state.selectedTiles.length < 4) return false;
-      var groupId = state.selectedTiles[0].groupId;
-      var filteredSelection = state.selectedTiles.filter(function (tile) {
+      if (state.activeTiles.length < 4) return false;
+      var groupId = state.activeTiles[0].groupId;
+      var filteredSelection = state.activeTiles.filter(function (tile) {
         return tile.groupId === groupId;
       });
       return filteredSelection.length === 4;
@@ -17719,7 +17743,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     selectTile: function selectTile(_ref, payload) {
       var commit = _ref.commit,
           state = _ref.state;
-      var existingEntry = state.selectedTiles.filter(function (tile) {
+      var existingEntry = state.activeTiles.filter(function (tile) {
         return tile.tileId === payload.tileId;
       });
 
@@ -17730,7 +17754,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     deSelectTile: function deSelectTile(_ref2, payload) {
       var state = _ref2.state,
           commit = _ref2.commit;
-      var indexToRemove = state.selectedTiles.findIndex(function (tile) {
+      var indexToRemove = state.activeTiles.findIndex(function (tile) {
         return tile.tileId === payload.tileId;
       });
 
@@ -17741,7 +17765,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     groupFound: function groupFound(_ref3) {
       var state = _ref3.state,
           commit = _ref3.commit;
-      var groupId = state.selectedTiles[0].groupId;
+      var groupId = state.activeTiles[0].groupId;
       commit('ADD_FOUND_GROUP', groupId);
       commit('CLEAR_CURRENT_SELECTION');
     },
@@ -17752,16 +17776,16 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   },
   mutations: {
     ADD_SELECTED_TILE_ID: function ADD_SELECTED_TILE_ID(state, payload) {
-      state.selectedTiles.push(payload);
+      state.activeTiles.push(payload);
     },
     REMOVE_SELECTED_TILE_ID: function REMOVE_SELECTED_TILE_ID(state, payload) {
-      state.selectedTiles.splice(payload, 1);
+      state.activeTiles.splice(payload, 1);
     },
     ADD_FOUND_GROUP: function ADD_FOUND_GROUP(state, payload) {
       state.groupsFoundIds.push(payload);
     },
     CLEAR_CURRENT_SELECTION: function CLEAR_CURRENT_SELECTION(state) {
-      state.selectedTiles = [];
+      state.activeTiles = [];
     }
   }
 });
