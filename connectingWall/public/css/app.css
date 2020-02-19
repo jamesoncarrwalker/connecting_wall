@@ -2,10 +2,20 @@
   font-weight: 800;
 }
 
-.router-view {
+.scaffoldSection {
   height: auto;
   padding: 12px;
+}
+
+.router-view {
   border-left: 1px solid lightblue;
+}
+
+.connectHeader {
+  height: 50px;
+  background: #85C1E9;
+  border-bottom: 1px solid #3498DB;
+  margin-bottom: 5px;
 }
 
 .wallTile {
@@ -40,5 +50,9 @@
 
 .router-view ul {
   padding: 0;
+}
+
+.margin-top-gone {
+  margin-top: 0;
 }
 

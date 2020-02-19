@@ -16,14 +16,12 @@
     <body>
         <div id="app" class="container-fluid">
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <h2>Only Bro-nect</h2>
-                </div>
+            <div class="row connectHeader">
+
             </div>
 
             <div class="row">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 card-body">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 scaffoldSection">
                     <ul class="list-unstyled">
 
                         <li><router-link :to="{name: 'home'}"  exact>Home</router-link></li>
@@ -34,7 +32,7 @@
                 </div>
 
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <router-view class="router-view"></router-view>
+                    <router-view class="scaffoldSection router-view"></router-view>
                 </div>
 
             </div>
