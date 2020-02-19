@@ -11,7 +11,8 @@
 .wallTile {
   height: 100px;
   margin: 2px;
-  background-color: grey;
+  background-color: #5DADE2;
+  color: white;
   border-radius: 2.5px;
   width: 24%;
 }
@@ -34,7 +35,6 @@
 
 .wallTile.active {
   background-color: #45B39D;
-  color: white;
 }
 
 .router-view ul {

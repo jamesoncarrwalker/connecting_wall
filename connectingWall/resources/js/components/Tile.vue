@@ -1,7 +1,8 @@
 <template>
     <li v-text="title"
-        v-show="showTilesForGroup"
-        :class="['text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile', {active:getActiveStatus}, 'group_' + groupId]"
+        :class="['text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile',
+        solved ? 'group_' + groupId : '', {active:getActiveStatus},
+         ]"
         @click="toggleActiveStatus"
     >
 
@@ -28,6 +29,10 @@
                 type: Number,
                 required: true
             },
+            solved: {
+                type: Boolean,
+                required: true
+            }
 
         },
 
@@ -52,6 +57,11 @@
             },
             showTilesForGroup() {
                 return this.$store.getters.showTilesForGroup(this.groupId);
+            }
+        },
+        data() {
+            return {
+                solvedClass:'group_' + this.groupId
             }
         }
 

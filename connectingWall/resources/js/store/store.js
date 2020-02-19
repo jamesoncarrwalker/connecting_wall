@@ -34,7 +34,18 @@ export const store = new Vuex.Store({
     },
 
     getters: {
-        getTiles: state => state.clues,
+
+        getCluesForUnsolvedGroups: state => {
+            return state.clues.filter((clue) => {
+                return state.groupsFoundIds.lastIndexOf(clue.groupId) === -1
+            });
+        },
+
+        getCluesForSolvedGroups: state => {
+            return state.clues.filter((clue) => {
+                return state.groupsFoundIds.lastIndexOf(clue.groupId) > -1
+            });
+        },
 
         activeTiles: state => state.activeTiles,
 

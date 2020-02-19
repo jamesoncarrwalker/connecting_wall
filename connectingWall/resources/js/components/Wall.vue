@@ -3,10 +3,11 @@
         <loading v-if="isLoading"></loading>
 
         <ul v-if="!isLoading" class="list-unstyled list-inline center-block">
-            <tile  v-for="tile, index in getTiles"
+            <tile  v-for="tile, index in getCluesForSolvedGroups"
                    :title="tile.clue"
                    :groupId="tile.groupId"
                    :id="tile.id"
+                   :solved="true"
                    :key="index"
             ></tile>
 
@@ -15,10 +16,11 @@
 
         <ul v-if="!isLoading" class="list-unstyled list-inline center-block "
         :class="getFullWidthClasses">
-            <tile  v-for="tile, index in getTiles"
+            <tile  v-for="tile, index in getCluesForUnsolvedGroups"
                    :title="tile.clue"
                    :groupId="tile.groupId"
                    :id="tile.id"
+                   :solved="false"
                    :key="index"
             ></tile>
         </ul>
@@ -42,7 +44,7 @@
 
         methods: {
             initWall() {
-                if(this.getTiles.length) {
+                if(this.getCluesForUnsolvedGroups.length) {
                     this.loading = false;
                 }
             },
@@ -61,8 +63,11 @@
                 return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
             },
 
-            getTiles() {
-                return this.$store.getters.getTiles;
+            getCluesForUnsolvedGroups() {
+                return this.$store.getters.getCluesForUnsolvedGroups;
+            },
+            getCluesForSolvedGroups() {
+                return this.$store.getters.getCluesForSolvedGroups;
             },
             groupFound() {
 

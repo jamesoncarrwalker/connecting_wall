@@ -167,6 +167,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     title: {
@@ -179,6 +180,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     id: {
       type: Number,
+      required: true
+    },
+    solved: {
+      type: Boolean,
       required: true
     }
   },
@@ -206,6 +211,11 @@ __webpack_require__.r(__webpack_exports__);
     showTilesForGroup: function showTilesForGroup() {
       return this.$store.getters.showTilesForGroup(this.groupId);
     }
+  },
+  data: function data() {
+    return {
+      solvedClass: 'group_' + this.groupId
+    };
   }
 });
 
@@ -253,6 +263,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -262,7 +274,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initWall: function initWall() {
-      if (this.getTiles.length) {
+      if (this.getCluesForUnsolvedGroups.length) {
         this.loading = false;
       }
     },
@@ -277,8 +289,11 @@ __webpack_require__.r(__webpack_exports__);
     getFullWidthClasses: function getFullWidthClasses() {
       return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
     },
-    getTiles: function getTiles() {
-      return this.$store.getters.getTiles;
+    getCluesForUnsolvedGroups: function getCluesForUnsolvedGroups() {
+      return this.$store.getters.getCluesForUnsolvedGroups;
+    },
+    getCluesForSolvedGroups: function getCluesForSolvedGroups() {
+      return this.$store.getters.getCluesForSolvedGroups;
     },
     groupFound: function groupFound() {},
     checkSelectedItems: function checkSelectedItems() {
@@ -886,20 +901,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", {
-    directives: [
-      {
-        name: "show",
-        rawName: "v-show",
-        value: _vm.showTilesForGroup,
-        expression: "showTilesForGroup"
-      }
-    ],
     class: [
       "text-center",
       "col-xs-4 col-sm-3 col-md-3 col-lg-3",
       "wallTile",
-      { active: _vm.getActiveStatus },
-      "group_" + _vm.groupId
+      _vm.solved ? "group_" + _vm.groupId : "",
+      { active: _vm.getActiveStatus }
     ],
     domProps: { textContent: _vm._s(_vm.title) },
     on: { click: _vm.toggleActiveStatus }
@@ -937,10 +944,15 @@ var render = function() {
         ? _c(
             "ul",
             { staticClass: "list-unstyled list-inline center-block" },
-            _vm._l(_vm.getTiles, function(tile, index) {
+            _vm._l(_vm.getCluesForSolvedGroups, function(tile, index) {
               return _c("tile", {
                 key: index,
-                attrs: { title: tile.clue, groupId: tile.groupId, id: tile.id }
+                attrs: {
+                  title: tile.clue,
+                  groupId: tile.groupId,
+                  id: tile.id,
+                  solved: true
+                }
               })
             }),
             1
@@ -954,10 +966,15 @@ var render = function() {
               staticClass: "list-unstyled list-inline center-block ",
               class: _vm.getFullWidthClasses
             },
-            _vm._l(_vm.getTiles, function(tile, index) {
+            _vm._l(_vm.getCluesForUnsolvedGroups, function(tile, index) {
               return _c("tile", {
                 key: index,
-                attrs: { title: tile.clue, groupId: tile.groupId, id: tile.id }
+                attrs: {
+                  title: tile.clue,
+                  groupId: tile.groupId,
+                  id: tile.id,
+                  solved: false
+                }
               })
             }),
             1
@@ -17703,8 +17720,15 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     groupsFoundIds: []
   },
   getters: {
-    getTiles: function getTiles(state) {
-      return state.clues;
+    getCluesForUnsolvedGroups: function getCluesForUnsolvedGroups(state) {
+      return state.clues.filter(function (clue) {
+        return state.groupsFoundIds.lastIndexOf(clue.groupId) === -1;
+      });
+    },
+    getCluesForSolvedGroups: function getCluesForSolvedGroups(state) {
+      return state.clues.filter(function (clue) {
+        return state.groupsFoundIds.lastIndexOf(clue.groupId) > -1;
+      });
     },
     activeTiles: function activeTiles(state) {
       return state.activeTiles;
