@@ -4,6 +4,7 @@
         solved ? 'group_' + groupId : '', {active:getActiveStatus}
          ]"
         @click="toggleActiveStatus"
+        mode="in-out"
     >
         <div class="tileContent" v-text="title"></div>
 

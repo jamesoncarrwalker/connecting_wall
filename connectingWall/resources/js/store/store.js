@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state:{
+        isLoading: true,
         groups: [
                 {id:0,connection:'Operating Systems'},
                 {id:1,connection:'___ Artist'},
@@ -34,6 +35,7 @@ export const store = new Vuex.Store({
     },
 
     getters: {
+        getLoadingStatus: state => state.isLoading,
 
         getCluesForUnsolvedGroups: state => {
             return  state.clues.filter(clue => state.groupsFoundIds.lastIndexOf(clue.groupId) === -1).sort(function(){return 0.5 - Math.random()});
@@ -51,11 +53,11 @@ export const store = new Vuex.Store({
 
         showTilesForGroup: state => groupId => state.groupsFoundIds.lastIndexOf(groupId) === -1,
 
+        getTilesForGroup: state => groupId => state.clues.filter(clue => clue.groupId === groupId),
+
         selectionsAreSingleGroup: state => {
             if(state.activeTiles.length < 4) return false;
             const groupId = state.activeTiles[0].groupId;
-            //const filteredSelection = state.activeTiles.filter(tile => tile.groupId === groupId);
-
             return state.activeTiles.filter(tile => tile.groupId === groupId).length === 4;
         },
 
@@ -66,6 +68,9 @@ export const store = new Vuex.Store({
     },
 
     actions: {
+        setLoadingStatus({commit},payload) {
+          commit('SET_LOADING_STATUS',payload);
+        },
         selectTile({commit,state}, payload) {
 
             const existingEntry = state.activeTiles.filter((tile) => {
@@ -102,6 +107,9 @@ export const store = new Vuex.Store({
     },
 
     mutations: {
+        SET_LOADING_STATUS(state,payload) {
+            state.isLoading = payload;
+        },
 
         ADD_SELECTED_TILE_ID(state,payload){
             state.activeTiles.push(payload);

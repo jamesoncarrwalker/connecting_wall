@@ -2,30 +2,16 @@
     <div :class="getFullWidthClasses">
         <loading v-if="isLoading"></loading>
 
-        <ul v-if="!isLoading" class="list-unstyled list-inline center-block">
-            <tile  v-for="tile, index in getCluesForSolvedGroups"
-                   :title="tile.clue"
-                   :groupId="tile.groupId"
-                   :id="tile.id"
-                   :solved="true"
-                   :key="index"
-            ></tile>
+        <group v-if="!isLoading"
+               :tiles="getCluesForSolvedGroups"
+               :solved="true">
 
-        </ul>
+        </group>
 
+        <group v-if="!isLoading"
+               :tiles="getCluesForUnsolvedGroups">
 
-        <ul v-if="!isLoading" class="list-unstyled list-inline center-block "
-        :class="getFullWidthClasses">
-            <tile  v-for="tile, index in getCluesForUnsolvedGroups"
-                   :title="tile.clue"
-                   :groupId="tile.groupId"
-                   :id="tile.id"
-                   :solved="false"
-                   :key="index"
-            ></tile>
-        </ul>
-
-
+        </group>
 
     </div>
 
@@ -33,31 +19,27 @@
 
 <script>
     import Loading from './Loading.vue';
-    import Tile from './Tile.vue';
+    import Group from './Group.vue';
+
 
     export default {
 
         components: {
             Loading,
-            Tile
+            Group
         },
 
         methods: {
             initWall() {
                 if(this.getCluesForUnsolvedGroups.length) {
-                    this.loading = false;
+                    this.$store.dispatch('setLoadingStatus',false);
                 }
-            },
-
-            setLoading(status) {
-                this.loading = status;
             }
-
         },
         computed: {
 
             isLoading() {
-                return this.loading;
+                return this.$store.getters.getLoadingStatus;
             },
             getFullWidthClasses() {
                 return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
@@ -69,9 +51,7 @@
             getCluesForSolvedGroups() {
                 return this.$store.getters.getCluesForSolvedGroups;
             },
-            groupFound() {
 
-            },
             checkSelectedItems() {
                 return this.$store.getters.selectedTilesCount === 4;
             },
@@ -80,12 +60,6 @@
             }
 
         },
-        data() {
-            return {
-                loading:true,
-            }
-        },
-
         created() {
             this.initWall();
 
