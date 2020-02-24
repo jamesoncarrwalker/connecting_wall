@@ -12,6 +12,9 @@ export const store = new Vuex.Store({
                 {id:2,connection:'Animal Homophones'},
                 {id:3,connection:'___ man'}
         ],
+        connections: [
+
+        ],
         clues: [
             {id:1, groupId:0, clue:'lion'},
             {id:2, groupId:0, clue:'tiger'},
@@ -31,7 +34,7 @@ export const store = new Vuex.Store({
             {id:16, groupId:3, clue:'leather'},
         ],
         activeTiles: [],
-        groupsFoundIds:[],
+        groupsFoundIds:[0,1,2,3],
     },
 
     getters: {
@@ -63,14 +66,13 @@ export const store = new Vuex.Store({
 
         wallSolved: state => state.groupsFoundIds.length >= 3,
 
-
-
     },
 
     actions: {
         setLoadingStatus({commit},payload) {
           commit('SET_LOADING_STATUS',payload);
         },
+
         selectTile({commit,state}, payload) {
 
             const existingEntry = state.activeTiles.filter((tile) => {
@@ -98,11 +100,17 @@ export const store = new Vuex.Store({
 
             commit('CLEAR_CURRENT_SELECTION');
         },
+
         clearSelectedTiles({commit}) {
             commit('CLEAR_CURRENT_SELECTION');
         },
+
         completeWall({commit}){
             commit('COMPLETE_WALL');
+        },
+
+        saveConnection({commit},payload) {
+            commit('SAVE_CONNECTION',payload);
         }
     },
 
@@ -131,6 +139,9 @@ export const store = new Vuex.Store({
                 state.groupsFoundIds = state.groups.map(group => group.id);
 
             }
+        },
+        SAVE_CONNECTION(state,payload) {
+            state.connections.push(payload);
         }
     }
 

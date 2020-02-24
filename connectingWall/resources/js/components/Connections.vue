@@ -7,10 +7,19 @@
             <h3>Now lets see if you can name the connections</h3>
 
             <div v-for="group, index in getGroups" :class="getFullWidthClasses" >
+                <div :class="getFullWidthClasses">
+                    <group :tiles="getTilesForGroup(group.id)"
+                           :solved="true" >
+                    </group>
+                </div>
+                <div :class="getFullWidthClasses">
 
-                <group :tiles="getTilesForGroup(group.id)"
-                        :solved="true" >
-                </group>
+                    <input-with-submit
+                            onClickFunc="saveConnection"
+                            :onClickData="{groupId:group.id}"
+                    ></input-with-submit>
+
+                </div>
 
             </div>
         </div>
@@ -24,10 +33,12 @@
 <script>
 
     import Group from './Group.vue';
+    import InputWithSubmit from '../inputs/InputWithSubmit.vue';
 
     export default {
         components: {
-            Group
+            Group,
+            InputWithSubmit
         },
         computed: {
           getHeading() {
@@ -48,16 +59,11 @@
               return this.$store.state.groups;
             },
 
-
         },
         methods: {
             getTilesForGroup(id) {
                 return this.$store.getters.getTilesForGroup(id);
-            }
+            },
         },
-        mounted() {
-            console.log('connections mounted');
-            console.log('groups found array == ', this.$store.state.groupsFoundIds);
-        }
     };
 </script>
