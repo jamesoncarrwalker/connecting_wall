@@ -360,7 +360,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({
     toggleActiveStatus: function toggleActiveStatus() {
-      console.log('toggling: this.solved = ', this.solved);
       if (this.solved) return;
       var payload = {
         tileId: this.id,

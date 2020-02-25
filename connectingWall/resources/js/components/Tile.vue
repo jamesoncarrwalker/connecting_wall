@@ -41,7 +41,6 @@
 
         methods: {
             toggleActiveStatus() {
-                console.log('toggling: this.solved = ',this.solved );
                 if(this.solved) return;
                 let payload = {tileId:this.id, groupId: this.groupId};
                 if(this.tileActiveStatus) {
