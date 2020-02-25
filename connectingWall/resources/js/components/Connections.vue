@@ -16,7 +16,7 @@
 
                     <input-with-submit
                             v-if="getUserConnectionForGroup(group.id) === ''"
-                            onClickFunc="saveConnection"
+                            onClickFunc="connections/saveConnection"
                             :onClickData="{groupId:group.id}"
                     ></input-with-submit>
 
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-
+    import {mapGetters,mapActions} from 'vuex';
     import Group from './Group.vue';
     import InputWithSubmit from '../inputs/InputWithSubmit.vue';
 
@@ -55,29 +55,18 @@
                   return 'Please finish the wall and then come back!'
               }
           },
-
-            wallIsSolved() {
-                return this.$store.getters.wallSolved;
-            },
             getFullWidthClasses() {
                 return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
             },
-            getGroups() {
-              return this.$store.state.groups;
-            },
+            ...mapGetters({
+                wallIsSolved: 'wall/wallSolved',
+                getGroups: 'connections/getGroups',
+                getTilesForGroup: 'wall/getTilesForGroup',
+                getUserConnectionForGroup: 'connections/getUserConnectionForGroup',
+                getCorrectConnectionForGroup: 'connections/getCorrectConnectionForGroup'
+            }),
 
 
-        },
-        methods: {
-            getTilesForGroup(id) {
-                return this.$store.getters.getTilesForGroup(id);
-            },
-            getUserConnectionForGroup(id) {
-                return this.$store.getters.getUserConnectionForGroup(id);
-            },
-            getCorrectConnectionForGroup(id) {
-                return this.$store.getters.getCorrectConnectionForGroup(id);
-            }
 
         },
     };

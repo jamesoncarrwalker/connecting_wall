@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     export default {
 
         components: {
@@ -38,7 +39,8 @@
                 const value = {value: this.inputValue};
                 const payload = {...this.onClickData, ...value};
                 this.$store.dispatch(this.onClickFunc,payload);
-            }
+            },
+
         },
         computed: {
 

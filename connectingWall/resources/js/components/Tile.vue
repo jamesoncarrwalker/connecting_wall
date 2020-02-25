@@ -1,10 +1,9 @@
 <template>
     <li
         :class="['align-middle','text-center','col-xs-4 col-sm-3 col-md-3 col-lg-3', 'wallTile',
-        solved ? 'group_' + groupId : '', {active:getActiveStatus}
+        solved ? 'group_' + groupId : '', {active:tileActiveStatus}
          ]"
         @click="toggleActiveStatus"
-        mode="in-out"
     >
         <div class="tileContent" v-text="title"></div>
 
@@ -13,6 +12,8 @@
 </template>
 
 <script>
+    import {mapGetters,mapActions} from 'vuex';
+
     export default {
 
         props: {
@@ -33,33 +34,36 @@
             },
             solved: {
                 type: Boolean,
-                required: true
+                default: false
             }
 
         },
 
         methods: {
             toggleActiveStatus() {
+                console.log('toggling: this.solved = ',this.solved );
+                if(this.solved) return;
                 let payload = {tileId:this.id, groupId: this.groupId};
-                if(this.getActiveStatus) {
-                    this.$store.dispatch('deSelectTile',payload);
+                if(this.tileActiveStatus) {
+                    this.deSelectTile(payload);
                 } else {
-                    this.$store.dispatch('selectTile',payload);
+                    this.selectTile(payload);
                 }
             },
+                ...mapActions({
+                    deSelectTile: 'wall/deSelectTile',
+                    selectTile: 'wall/selectTile'
+                }),
         },
 
         computed: {
-            getActiveStatus() {
-                return this.$store.getters.isActiveTile(this.id);
-            },
+                ...mapGetters({
+                    isActiveTile: 'wall/isActiveTile',
 
-            getActiveTiles() {
-                return this.$store.getters.activeTiles;
-            },
-            showTilesForGroup() {
-                return this.$store.getters.showTilesForGroup(this.groupId);
-            }
+                }),
+                tileActiveStatus() {
+                    return this.isActiveTile(this.id);
+                }
         },
         data() {
             return {

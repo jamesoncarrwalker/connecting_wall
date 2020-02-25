@@ -95,8 +95,15 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Group_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Group.vue */ "./resources/js/components/Group.vue");
-/* harmony import */ var _inputs_InputWithSubmit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../inputs/InputWithSubmit.vue */ "./resources/js/inputs/InputWithSubmit.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Group_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Group.vue */ "./resources/js/components/Group.vue");
+/* harmony import */ var _inputs_InputWithSubmit_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../inputs/InputWithSubmit.vue */ "./resources/js/inputs/InputWithSubmit.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -136,14 +143,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Group: _Group_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    InputWithSubmit: _inputs_InputWithSubmit_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Group: _Group_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    InputWithSubmit: _inputs_InputWithSubmit_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: {
+  computed: _objectSpread({
     getHeading: function getHeading() {
       if (this.wallIsSolved) {
         return 'Congratulations you solved the wall!';
@@ -151,27 +159,16 @@ __webpack_require__.r(__webpack_exports__);
         return 'Please finish the wall and then come back!';
       }
     },
-    wallIsSolved: function wallIsSolved() {
-      return this.$store.getters.wallSolved;
-    },
     getFullWidthClasses: function getFullWidthClasses() {
       return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
-    },
-    getGroups: function getGroups() {
-      return this.$store.state.groups;
     }
-  },
-  methods: {
-    getTilesForGroup: function getTilesForGroup(id) {
-      return this.$store.getters.getTilesForGroup(id);
-    },
-    getUserConnectionForGroup: function getUserConnectionForGroup(id) {
-      return this.$store.getters.getUserConnectionForGroup(id);
-    },
-    getCorrectConnectionForGroup: function getCorrectConnectionForGroup(id) {
-      return this.$store.getters.getCorrectConnectionForGroup(id);
-    }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    wallIsSolved: 'wall/wallSolved',
+    getGroups: 'connections/getGroups',
+    getTilesForGroup: 'wall/getTilesForGroup',
+    getUserConnectionForGroup: 'connections/getUserConnectionForGroup',
+    getCorrectConnectionForGroup: 'connections/getCorrectConnectionForGroup'
+  }))
 });
 
 /***/ }),
@@ -321,6 +318,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -334,7 +338,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     title: {
@@ -351,34 +355,35 @@ __webpack_require__.r(__webpack_exports__);
     },
     solved: {
       type: Boolean,
-      required: true
+      "default": false
     }
   },
-  methods: {
+  methods: _objectSpread({
     toggleActiveStatus: function toggleActiveStatus() {
+      console.log('toggling: this.solved = ', this.solved);
+      if (this.solved) return;
       var payload = {
         tileId: this.id,
         groupId: this.groupId
       };
 
-      if (this.getActiveStatus) {
-        this.$store.dispatch('deSelectTile', payload);
+      if (this.tileActiveStatus) {
+        this.deSelectTile(payload);
       } else {
-        this.$store.dispatch('selectTile', payload);
+        this.selectTile(payload);
       }
     }
-  },
-  computed: {
-    getActiveStatus: function getActiveStatus() {
-      return this.$store.getters.isActiveTile(this.id);
-    },
-    getActiveTiles: function getActiveTiles() {
-      return this.$store.getters.activeTiles;
-    },
-    showTilesForGroup: function showTilesForGroup() {
-      return this.$store.getters.showTilesForGroup(this.groupId);
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    deSelectTile: 'wall/deSelectTile',
+    selectTile: 'wall/selectTile'
+  })),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    isActiveTile: 'wall/isActiveTile'
+  }), {
+    tileActiveStatus: function tileActiveStatus() {
+      return this.isActiveTile(this.id);
     }
-  },
+  }),
   data: function data() {
     return {
       solvedClass: 'group_' + this.groupId
@@ -397,8 +402,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Loading_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loading.vue */ "./resources/js/components/Loading.vue");
-/* harmony import */ var _Group_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Group.vue */ "./resources/js/components/Group.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Loading_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loading.vue */ "./resources/js/components/Loading.vue");
+/* harmony import */ var _Group_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Group.vue */ "./resources/js/components/Group.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -418,55 +430,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Loading: _Loading_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Group: _Group_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Loading: _Loading_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Group: _Group_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  methods: {
+  methods: _objectSpread({
     initWall: function initWall() {
       if (this.getCluesForUnsolvedGroups.length) {
-        this.$store.dispatch('setLoadingStatus', false);
+        this.setLoadingStatus(false);
       }
     }
-  },
-  computed: {
-    isLoading: function isLoading() {
-      return this.$store.getters.getLoadingStatus;
-    },
-    getFullWidthClasses: function getFullWidthClasses() {
-      return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
-    },
-    getCluesForUnsolvedGroups: function getCluesForUnsolvedGroups() {
-      return this.$store.getters.getCluesForUnsolvedGroups;
-    },
-    getCluesForSolvedGroups: function getCluesForSolvedGroups() {
-      return this.$store.getters.getCluesForSolvedGroups;
-    },
-    checkSelectedItems: function checkSelectedItems() {
-      return this.$store.getters.selectedTilesCount === 4;
-    },
-    wallSolved: function wallSolved() {
-      return this.$store.getters.wallSolved;
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    setLoadingStatus: 'shared/setLoadingStatus',
+    groupFound: 'wall/groupFound',
+    clearSelectedTiles: 'wall/clearSelectedTiles',
+    completeWall: 'wall/completeWall'
+  })),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    getFullWidthClasses: 'shared/getFullWidthClasses',
+    isLoading: 'shared/getLoadingStatus',
+    getCluesForUnsolvedGroups: 'wall/getCluesForUnsolvedGroups',
+    getCluesForSolvedGroups: 'wall/getCluesForSolvedGroups',
+    selectedTileCount: 'wall/selectedTilesCount',
+    wallSolved: 'wall/wallSolved',
+    selectionsAreSingleGroup: 'wall/selectionsAreSingleGroup'
+  }), {
+    checkSelectedItemsCount: function checkSelectedItemsCount() {
+      return this.selectedTileCount === 4;
     }
-  },
+  }),
   created: function created() {
     this.initWall();
   },
   watch: {
     // whenever question changes, this function will run
-    checkSelectedItems: function checkSelectedItems() {
-      if (this.checkSelectedItems && this.$store.getters.selectionsAreSingleGroup) {
-        this.$store.dispatch('groupFound');
+    checkSelectedItemsCount: function checkSelectedItemsCount() {
+      if (this.checkSelectedItemsCount && this.selectionsAreSingleGroup) {
+        this.groupFound();
       } else {
-        this.$store.dispatch('clearSelectedTiles');
+        this.clearSelectedTiles();
       }
     },
     wallSolved: function wallSolved() {
       if (this.wallSolved) {
-        this.$store.dispatch('completeWall');
+        this.completeWall();
         this.$router.push({
           name: 'connections'
         });
@@ -541,6 +552,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -558,6 +570,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   data: function data() {
@@ -1118,7 +1131,7 @@ var render = function() {
                       _vm.getUserConnectionForGroup(group.id) === ""
                         ? _c("input-with-submit", {
                             attrs: {
-                              onClickFunc: "saveConnection",
+                              onClickFunc: "connections/saveConnection",
                               onClickData: { groupId: group.id }
                             }
                           })
@@ -1301,9 +1314,8 @@ var render = function() {
         "col-xs-4 col-sm-3 col-md-3 col-lg-3",
         "wallTile",
         _vm.solved ? "group_" + _vm.groupId : "",
-        { active: _vm.getActiveStatus }
+        { active: _vm.tileActiveStatus }
       ],
-      attrs: { mode: "in-out" },
       on: { click: _vm.toggleActiveStatus }
     },
     [
@@ -18314,25 +18326,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/store/store.js":
-/*!*************************************!*\
-  !*** ./resources/js/store/store.js ***!
-  \*************************************/
-/*! exports provided: store */
+/***/ "./resources/js/store/modules/connections.js":
+/*!***************************************************!*\
+  !*** ./resources/js/store/modules/connections.js ***!
+  \***************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+/**
+ * Created by jamesskywalker on 25/02/2020.
+ */
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
   state: {
-    isLoading: true,
     groups: [{
       id: 0,
       connection: 'Operating Systems'
@@ -18346,7 +18354,93 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       id: 3,
       connection: '___ man'
     }],
-    connections: [],
+    connections: []
+  },
+  getters: {
+    getUserConnectionForGroup: function getUserConnectionForGroup(state) {
+      return function (id) {
+        var guess = state.connections.filter(function (conn) {
+          return conn.groupId === id;
+        });
+        return guess.length > 0 ? guess[0].value : '';
+      };
+    },
+    getCorrectConnectionForGroup: function getCorrectConnectionForGroup(state) {
+      return function (id) {
+        var guess = state.groups.filter(function (conn) {
+          return conn.id === id;
+        });
+        return guess.length > 0 ? guess[0].connection : '';
+      };
+    },
+    getGroups: function getGroups(state) {
+      return state.groups;
+    }
+  },
+  actions: {
+    saveConnection: function saveConnection(_ref, payload) {
+      var commit = _ref.commit;
+      commit('SAVE_CONNECTION', payload);
+    }
+  },
+  mutations: {
+    SAVE_CONNECTION: function SAVE_CONNECTION(state, payload) {
+      state.connections.push(payload);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/shared.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/modules/shared.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    isLoading: true
+  },
+  getters: {
+    getLoadingStatus: function getLoadingStatus(state) {
+      return state.isLoading;
+    },
+    getFullWidthClasses: function getFullWidthClasses() {
+      return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
+    }
+  },
+  actions: {
+    setLoadingStatus: function setLoadingStatus(_ref, payload) {
+      var commit = _ref.commit;
+      commit('SET_LOADING_STATUS', payload);
+    }
+  },
+  mutations: {
+    SET_LOADING_STATUS: function SET_LOADING_STATUS(state, payload) {
+      state.isLoading = payload;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/wall.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/wall.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
     clues: [{
       id: 1,
       groupId: 0,
@@ -18413,22 +18507,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       clue: 'leather'
     }],
     activeTiles: [],
-    groupsFoundIds: [0, 1, 2, 3]
+    groupsFoundIds: []
   },
   getters: {
-    getLoadingStatus: function getLoadingStatus(state) {
-      return state.isLoading;
-    },
     getCluesForUnsolvedGroups: function getCluesForUnsolvedGroups(state) {
       return state.clues.filter(function (clue) {
         return state.groupsFoundIds.lastIndexOf(clue.groupId) === -1;
       }).sort(function () {
         return 0.5 - Math.random();
-      });
-    },
-    getCluesForSolvedGroups: function getCluesForSolvedGroups(state) {
-      return state.clues.filter(function (clue) {
-        return state.groupsFoundIds.lastIndexOf(clue.groupId) > -1;
       });
     },
     activeTiles: function activeTiles(state) {
@@ -18444,9 +18530,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         }) > -1;
       };
     },
-    showModal: function showModal(state) {
-      return state.activeTiles.length === 4;
-    },
+    //showModal: state => state.activeTiles.length === 4, <-- is there a modal?  I think not
     showTilesForGroup: function showTilesForGroup(state) {
       return function (groupId) {
         return state.groupsFoundIds.lastIndexOf(groupId) === -1;
@@ -18459,88 +18543,66 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         });
       };
     },
+    wallSolved: function wallSolved(state) {
+      return state.groupsFoundIds.length >= 3;
+    },
+    getCluesForSolvedGroups: function getCluesForSolvedGroups(state) {
+      return state.clues.filter(function (clue) {
+        return state.groupsFoundIds.lastIndexOf(clue.groupId) > -1;
+      });
+    },
     selectionsAreSingleGroup: function selectionsAreSingleGroup(state) {
       if (state.activeTiles.length < 4) return false;
       var groupId = state.activeTiles[0].groupId;
       return state.activeTiles.filter(function (tile) {
         return tile.groupId === groupId;
       }).length === 4;
-    },
-    wallSolved: function wallSolved(state) {
-      return state.groupsFoundIds.length >= 3;
-    },
-    getUserConnectionForGroup: function getUserConnectionForGroup(state) {
-      return function (id) {
-        var guess = state.connections.filter(function (conn) {
-          return conn.groupId === id;
-        });
-        return guess.length > 0 ? guess[0].value : '';
-      };
-    },
-    getCorrectConnectionForGroup: function getCorrectConnectionForGroup(state) {
-      return function (id) {
-        var guess = state.groups.filter(function (conn) {
-          return conn.id === id;
-        });
-        return guess.length > 0 ? guess[0].connection : '';
-      };
     }
   },
   actions: {
-    setLoadingStatus: function setLoadingStatus(_ref, payload) {
-      var commit = _ref.commit;
-      commit('SET_LOADING_STATUS', payload);
-    },
-    selectTile: function selectTile(_ref2, payload) {
-      var commit = _ref2.commit,
-          state = _ref2.state;
+    selectTile: function selectTile(_ref, payload) {
+      var commit = _ref.commit,
+          state = _ref.state;
       var existingEntry = state.activeTiles.filter(function (tile) {
         return tile.tileId === payload.tileId;
       });
 
       if (existingEntry.length === 0) {
-        commit('ADD_SELECTED_TILE_ID', payload);
+        commit('ADD_SELECTED_TILE', payload);
       }
     },
-    deSelectTile: function deSelectTile(_ref3, payload) {
-      var state = _ref3.state,
-          commit = _ref3.commit;
+    deSelectTile: function deSelectTile(_ref2, payload) {
+      var state = _ref2.state,
+          commit = _ref2.commit;
       var indexToRemove = state.activeTiles.findIndex(function (tile) {
         return tile.tileId === payload.tileId;
       });
 
       if (indexToRemove > -1) {
-        commit('REMOVE_SELECTED_TILE_ID', indexToRemove);
+        commit('REMOVE_SELECTED_TILE', indexToRemove);
       }
     },
-    groupFound: function groupFound(_ref4) {
-      var state = _ref4.state,
-          commit = _ref4.commit;
+    groupFound: function groupFound(_ref3) {
+      var state = _ref3.state,
+          commit = _ref3.commit;
       var groupId = state.activeTiles[0].groupId;
       commit('ADD_FOUND_GROUP', groupId);
       commit('CLEAR_CURRENT_SELECTION');
     },
-    clearSelectedTiles: function clearSelectedTiles(_ref5) {
-      var commit = _ref5.commit;
+    clearSelectedTiles: function clearSelectedTiles(_ref4) {
+      var commit = _ref4.commit;
       commit('CLEAR_CURRENT_SELECTION');
     },
-    completeWall: function completeWall(_ref6) {
-      var commit = _ref6.commit;
+    completeWall: function completeWall(_ref5) {
+      var commit = _ref5.commit;
       commit('COMPLETE_WALL');
-    },
-    saveConnection: function saveConnection(_ref7, payload) {
-      var commit = _ref7.commit;
-      commit('SAVE_CONNECTION', payload);
     }
   },
   mutations: {
-    SET_LOADING_STATUS: function SET_LOADING_STATUS(state, payload) {
-      state.isLoading = payload;
-    },
-    ADD_SELECTED_TILE_ID: function ADD_SELECTED_TILE_ID(state, payload) {
+    ADD_SELECTED_TILE: function ADD_SELECTED_TILE(state, payload) {
       state.activeTiles.push(payload);
     },
-    REMOVE_SELECTED_TILE_ID: function REMOVE_SELECTED_TILE_ID(state, payload) {
+    REMOVE_SELECTED_TILE: function REMOVE_SELECTED_TILE(state, payload) {
       state.activeTiles.splice(payload, 1);
     },
     ADD_FOUND_GROUP: function ADD_FOUND_GROUP(state, payload) {
@@ -18551,14 +18613,45 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     COMPLETE_WALL: function COMPLETE_WALL(state) {
       if (state.groupsFoundIds.length < 4) {
-        state.groupsFoundIds = state.groups.map(function (group) {
-          return group.id;
+        state.groupsFoundIds = state.clues.filter(function (clue, index, clues) {
+          return clues.lastIndexOf(clue) === index;
+        }).map(function (clue) {
+          return clue.groupId;
         });
       }
-    },
-    SAVE_CONNECTION: function SAVE_CONNECTION(state, payload) {
-      state.connections.push(payload);
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/store.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/store.js ***!
+  \*************************************/
+/*! exports provided: store */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _modules_connections__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/connections */ "./resources/js/store/modules/connections.js");
+/* harmony import */ var _modules_wall__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/wall */ "./resources/js/store/modules/wall.js");
+/* harmony import */ var _modules_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/shared */ "./resources/js/store/modules/shared.js");
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  modules: {
+    shared: _modules_shared__WEBPACK_IMPORTED_MODULE_4__["default"],
+    connections: _modules_connections__WEBPACK_IMPORTED_MODULE_2__["default"],
+    wall: _modules_wall__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 

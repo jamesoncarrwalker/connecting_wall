@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55e47a8c-d85b-4b45-94bc-3e280c70d1b8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/connectingWall/resources/js/store/modules/connections.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/connectingWall/resources/js/store/modules/shared.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/connectingWall/resources/js/store/modules/wall.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectingWall/public/js/app.js" afterPath="$PROJECT_DIR$/connectingWall/public/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectingWall/resources/js/components/Connections.vue" afterPath="$PROJECT_DIR$/connectingWall/resources/js/components/Connections.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectingWall/resources/js/components/Tile.vue" afterPath="$PROJECT_DIR$/connectingWall/resources/js/components/Tile.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectingWall/resources/js/components/Wall.vue" afterPath="$PROJECT_DIR$/connectingWall/resources/js/components/Wall.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectingWall/resources/js/inputs/InputWithSubmit.vue" afterPath="$PROJECT_DIR$/connectingWall/resources/js/inputs/InputWithSubmit.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectingWall/resources/js/store/store.js" afterPath="$PROJECT_DIR$/connectingWall/resources/js/store/store.js" />
     </list>
     <ignored path="connecting_wall.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/routes.js">
+      <file leaf-file-name="store.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/store.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -37,38 +46,40 @@
       <file leaf-file-name="Tile.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Tile.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+            <state vertical-scroll-proportion="-16.764706">
+              <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Group.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Group.vue">
+      <file leaf-file-name="wall.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/modules/wall.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.1138613">
+              <caret line="98" column="47" selection-start-line="98" selection-start-column="47" selection-end-line="98" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="connections.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/modules/connections.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-              <folding />
+              <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#51#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wall.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Wall.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.0">
-              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Connections.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Connections.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Connections.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6185567">
-              <caret line="24" column="76" selection-start-line="24" selection-start-column="76" selection-end-line="24" selection-end-column="76" />
+            <state vertical-scroll-proportion="-6.1764708">
+              <caret line="23" column="85" selection-start-line="23" selection-start-column="85" selection-end-line="23" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -77,18 +88,28 @@
       <file leaf-file-name="InputWithSubmit.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/inputs/InputWithSubmit.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.375">
-              <caret line="39" column="63" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
+            <state vertical-scroll-proportion="-20.625">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="store.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/store.js">
+      <file leaf-file-name="shared.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/modules/shared.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <caret line="1" column="20" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Wall.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Wall.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.647059">
+              <caret line="53" column="50" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -156,13 +177,16 @@
         <option value="$PROJECT_DIR$/connectingwall/resources/sass/partials/_overrides.scss" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/components/Welcome.vue" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/components/NavigationButton.vue" />
-        <option value="$PROJECT_DIR$/connectingwall/resources/js/components/Tile.vue" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/routes.js" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/components/Group.vue" />
+        <option value="$PROJECT_DIR$/connectingwall/resources/js/store/store.js" />
+        <option value="$PROJECT_DIR$/connectingwall/resources/js/store/modules/connections.js" />
+        <option value="$PROJECT_DIR$/connectingwall/resources/js/store/modules/shared.js" />
+        <option value="$PROJECT_DIR$/connectingwall/resources/js/components/Tile.vue" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/components/Wall.vue" />
+        <option value="$PROJECT_DIR$/connectingwall/resources/js/store/modules/wall.js" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/inputs/InputWithSubmit.vue" />
         <option value="$PROJECT_DIR$/connectingwall/resources/js/components/Connections.vue" />
-        <option value="$PROJECT_DIR$/connectingwall/resources/js/store/store.js" />
       </list>
     </option>
   </component>
@@ -428,6 +452,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="store" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="connecting_wall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="connecting_wall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="connectingwall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="store" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -867,14 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -906,18 +952,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Tile.vue">
+    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Wall.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.0">
-          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -925,23 +963,65 @@
     <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/store.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Wall.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.647059">
+          <caret line="53" column="50" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Tile.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.764706">
+          <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/inputs/InputWithSubmit.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.375">
-          <caret line="39" column="63" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
+        <state vertical-scroll-proportion="-20.625">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/components/Connections.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6185567">
-          <caret line="24" column="76" selection-start-line="24" selection-start-column="76" selection-end-line="24" selection-end-column="76" />
+        <state vertical-scroll-proportion="-6.1764708">
+          <caret line="23" column="85" selection-start-line="23" selection-start-column="85" selection-end-line="23" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/modules/shared.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="20" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/modules/connections.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#51#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connectingwall/resources/js/store/modules/wall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.1138613">
+          <caret line="98" column="47" selection-start-line="98" selection-start-column="47" selection-end-line="98" selection-end-column="47" />
           <folding />
         </state>
       </provider>

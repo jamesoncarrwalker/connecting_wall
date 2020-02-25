@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import { mapGetters,mapActions } from 'vuex';
     import Loading from './Loading.vue';
     import Group from './Group.vue';
 
@@ -32,32 +33,31 @@
         methods: {
             initWall() {
                 if(this.getCluesForUnsolvedGroups.length) {
-                    this.$store.dispatch('setLoadingStatus',false);
+                    this.setLoadingStatus(false);
                 }
-            }
+            },
+            ...mapActions({
+                setLoadingStatus: 'shared/setLoadingStatus',
+                groupFound: 'wall/groupFound',
+                clearSelectedTiles: 'wall/clearSelectedTiles',
+                completeWall: 'wall/completeWall'
+            })
         },
         computed: {
 
-            isLoading() {
-                return this.$store.getters.getLoadingStatus;
-            },
-            getFullWidthClasses() {
-                return 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
-            },
+                ...mapGetters({
+                    getFullWidthClasses: 'shared/getFullWidthClasses',
+                    isLoading: 'shared/getLoadingStatus',
+                    getCluesForUnsolvedGroups: 'wall/getCluesForUnsolvedGroups',
+                    getCluesForSolvedGroups: 'wall/getCluesForSolvedGroups',
+                    selectedTileCount: 'wall/selectedTilesCount',
+                    wallSolved: 'wall/wallSolved',
+                    selectionsAreSingleGroup: 'wall/selectionsAreSingleGroup'
+                }),
 
-            getCluesForUnsolvedGroups() {
-                return this.$store.getters.getCluesForUnsolvedGroups;
+            checkSelectedItemsCount() {
+                return this.selectedTileCount === 4;
             },
-            getCluesForSolvedGroups() {
-                return this.$store.getters.getCluesForSolvedGroups;
-            },
-
-            checkSelectedItems() {
-                return this.$store.getters.selectedTilesCount === 4;
-            },
-            wallSolved() {
-                return this.$store.getters.wallSolved;
-            }
 
         },
         created() {
@@ -66,16 +66,16 @@
         },
         watch: {
             // whenever question changes, this function will run
-            checkSelectedItems: function () {
-                if(this.checkSelectedItems && this.$store.getters.selectionsAreSingleGroup) {
-                    this.$store.dispatch('groupFound');
+            checkSelectedItemsCount: function () {
+                if(this.checkSelectedItemsCount && this.selectionsAreSingleGroup) {
+                    this.groupFound();
                 } else {
-                    this.$store.dispatch('clearSelectedTiles');
+                    this.clearSelectedTiles();
                 }
             },
             wallSolved: function () {
                 if(this.wallSolved) {
-                    this.$store.dispatch('completeWall');
+                    this.completeWall();
                     this.$router.push({ name: 'connections' })
                 }
             }
