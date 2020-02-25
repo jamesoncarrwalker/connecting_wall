@@ -1,6 +1,10 @@
 # connecting_wall
 
-Originally Built Jan 2018
-**Currently part way through upgrade to Vue.js**
+This was part of an escape room created for a games night amongst friends.  There are 4 groups of 4 seemingly random clues, if you've seen the show Only Connect (BBC) then you will recognise the idea.  Make the connections, and check with your host to see if they are correct - you can play the game here: http://connectingwall.jamesmcarr.co.uk/ 
 
-This was part of an escape room created for a games night amongst friends.  There are 4 groups of 4 seemingly random clues, if you've seen the show Only Connect (BBC) then you will recognise the idea.  Make the connections, and check with your host to see if they are correct - you can play the game here: www.jamesmcarr.co.uk/connectingwall - it might be more fun to play first before you look at the code so you don't spoil the fun.  Or you can always be the host!  
+Main vue/js is at https://github.com/jamesoncarrwalker/connecting_wall/tree/master/connectingWall/resources/js 
+
+This is a simple SPA using vue-router to navigate - currently housed in Laravel for simplicity and extensibility (e.g. potential to extend and allow game creatation/multiple walls etc via laravel api/axios).  The hosted example is housed independantly (for now) and has a minified js.
+
+
+
