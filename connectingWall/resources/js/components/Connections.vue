@@ -15,9 +15,16 @@
                 <div :class="getFullWidthClasses">
 
                     <input-with-submit
+                            v-if="getUserConnectionForGroup(group.id) === ''"
                             onClickFunc="saveConnection"
                             :onClickData="{groupId:group.id}"
                     ></input-with-submit>
+
+                    <div v-else>
+                        <p >Your guess: {{ getUserConnectionForGroup(group.id) }}</p>
+                        <p>Answer: {{ getCorrectConnectionForGroup(group.id) }} </p>
+                    </div>
+
 
                 </div>
 
@@ -59,11 +66,19 @@
               return this.$store.state.groups;
             },
 
+
         },
         methods: {
             getTilesForGroup(id) {
                 return this.$store.getters.getTilesForGroup(id);
             },
+            getUserConnectionForGroup(id) {
+                return this.$store.getters.getUserConnectionForGroup(id);
+            },
+            getCorrectConnectionForGroup(id) {
+                return this.$store.getters.getCorrectConnectionForGroup(id);
+            }
+
         },
     };
 </script>

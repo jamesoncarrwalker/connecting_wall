@@ -66,6 +66,15 @@ export const store = new Vuex.Store({
 
         wallSolved: state => state.groupsFoundIds.length >= 3,
 
+        getUserConnectionForGroup: state => id => {
+            const guess = state.connections.filter(conn => conn.groupId === id );
+            return guess.length > 0 ? guess[0].value : '';
+        },
+        getCorrectConnectionForGroup: state => id => {
+            const guess = state.groups.filter(conn => conn.id === id );
+            return guess.length > 0 ? guess[0].connection: '';
+        }
+
     },
 
     actions: {

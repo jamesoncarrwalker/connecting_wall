@@ -129,6 +129,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -157,6 +164,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getTilesForGroup: function getTilesForGroup(id) {
       return this.$store.getters.getTilesForGroup(id);
+    },
+    getUserConnectionForGroup: function getUserConnectionForGroup(id) {
+      return this.$store.getters.getUserConnectionForGroup(id);
+    },
+    getCorrectConnectionForGroup: function getCorrectConnectionForGroup(id) {
+      return this.$store.getters.getCorrectConnectionForGroup(id);
     }
   }
 });
@@ -1102,12 +1115,33 @@ var render = function() {
                     "div",
                     { class: _vm.getFullWidthClasses },
                     [
-                      _c("input-with-submit", {
-                        attrs: {
-                          onClickFunc: "saveConnection",
-                          onClickData: { groupId: group.id }
-                        }
-                      })
+                      _vm.getUserConnectionForGroup(group.id) === ""
+                        ? _c("input-with-submit", {
+                            attrs: {
+                              onClickFunc: "saveConnection",
+                              onClickData: { groupId: group.id }
+                            }
+                          })
+                        : _c("div", [
+                            _c("p", [
+                              _vm._v(
+                                "Your guess: " +
+                                  _vm._s(
+                                    _vm.getUserConnectionForGroup(group.id)
+                                  )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                "Answer: " +
+                                  _vm._s(
+                                    _vm.getCorrectConnectionForGroup(group.id)
+                                  ) +
+                                  " "
+                              )
+                            ])
+                          ])
                     ],
                     1
                   )
@@ -18434,6 +18468,22 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     wallSolved: function wallSolved(state) {
       return state.groupsFoundIds.length >= 3;
+    },
+    getUserConnectionForGroup: function getUserConnectionForGroup(state) {
+      return function (id) {
+        var guess = state.connections.filter(function (conn) {
+          return conn.groupId === id;
+        });
+        return guess.length > 0 ? guess[0].value : '';
+      };
+    },
+    getCorrectConnectionForGroup: function getCorrectConnectionForGroup(state) {
+      return function (id) {
+        var guess = state.groups.filter(function (conn) {
+          return conn.id === id;
+        });
+        return guess.length > 0 ? guess[0].connection : '';
+      };
     }
   },
   actions: {
