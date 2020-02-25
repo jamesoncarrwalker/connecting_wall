@@ -18530,7 +18530,6 @@ __webpack_require__.r(__webpack_exports__);
         }) > -1;
       };
     },
-    //showModal: state => state.activeTiles.length === 4, <-- is there a modal?  I think not
     showTilesForGroup: function showTilesForGroup(state) {
       return function (groupId) {
         return state.groupsFoundIds.lastIndexOf(groupId) === -1;

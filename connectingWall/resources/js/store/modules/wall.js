@@ -32,8 +32,6 @@ export default {
 
         isActiveTile: state => id => state.activeTiles.findIndex(tile => tile.tileId === id) > -1,
 
-        //showModal: state => state.activeTiles.length === 4, <-- is there a modal?  I think not
-
         showTilesForGroup: state => groupId => state.groupsFoundIds.lastIndexOf(groupId) === -1,
 
         getTilesForGroup: state => groupId => state.clues.filter(clue => clue.groupId === groupId),
